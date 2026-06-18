@@ -6,26 +6,85 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
 
-\title{Intelligent Network Intrusion Detection System (NIDS) \\ \large Open Capstone Project}
-\author{Kamal Benramdane \and FRANCOIS ZOGBELEMOU}
-\date{\today}
+
+
+
+
+% ── PREAMBLE (add these if not already present) ──────────────────────────
+\usepackage{geometry}
+\usepackage{titling}
+\usepackage{parskip}
 
 \begin{document}
 
-\maketitle
+% ── PAGE 1 : TITLE PAGE ──────────────────────────────────────────────────
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
 
-% Executive Summary for non-technical audience (CEO / SOC Manager)
-\begin{abstract}
-\noindent \textbf{Executive Summary} \\
-Modern enterprise networks are under constant attack by sophisticated cyber threats that easily bypass traditional firewalls. For a Chief Information Security Officer (CISO) or SOC Manager, this means security teams are overwhelmed by manual log analysis and ``alert fatigue,'' increasing the risk of a devastating data breach. 
+    {\large\scshape Open Capstone Project \par}
+    \vspace{0.5cm}
+    \rule{\linewidth}{0.4pt}
+    \vspace{0.5cm}
 
-To solve this, we are developing an intelligent Network Intrusion Detection System (NIDS). By leveraging advanced machine learning, this system automatically analyzes network traffic to distinguish between normal operations and active attacks (such as Denial of Service or Exploits). This automated, data-driven approach drastically reduces false alarms, allows security analysts to focus on real threats, and ultimately hardens the organization's cyber defense posture.
-\end{abstract}
+    {\Huge\bfseries Intelligent Network Intrusion\\[0.3em]
+    Detection System (NIDS) \par}
 
+    \vspace{0.5cm}
+    \rule{\linewidth}{0.4pt}
+    \vspace{2cm}
+
+    {\large\bfseries Authors \par}
+    \vspace{0.4cm}
+    {\large
+        Kamal Benramdane \\[0.3em]
+        François Zogbelemou
+    \par}
+
+    \vfill
+
+    {\large \today \par}
+\end{titlepage}
+
+% ── PAGE 2 : ABSTRACT ────────────────────────────────────────────────────
+\newpage
+\phantomsection              % keeps hyperref happy
+\addcontentsline{toc}{section}{Abstract}
+
+\begin{center}
+    {\Large\bfseries Executive Summary}
+\end{center}
+\vspace{0.5em}
+\noindent
+Modern enterprise networks are under constant attack by sophisticated cyber
+threats that easily bypass traditional firewalls. For a Chief Information
+Security Officer (CISO) or SOC Manager, this means security teams are
+overwhelmed by manual log analysis and ``alert fatigue,'' increasing the
+risk of a devastating data breach.
+
+\medskip\noindent
+To solve this, we are developing an intelligent Network Intrusion Detection
+System (NIDS). By leveraging advanced machine learning, this system
+automatically analyzes network traffic to distinguish between normal
+operations and active attacks (such as Denial of Service or Exploits).
+This automated, data-driven approach drastically reduces false alarms,
+allows security analysts to focus on real threats, and ultimately hardens
+the organisation's cyber defence posture.
+
+% ── PAGE 3 : TABLE OF CONTENTS ───────────────────────────────────────────
 \newpage
 \tableofcontents
 \newpage
+
+
+
+
+
+
 
 \section{Problem Statement}
 \subsection{Background \& Business Motivation}
@@ -62,8 +121,26 @@ label            int64
 \end{verbatim}
 
 \section{Pipeline Overview Diagram}
-% TODO: Insert pipeline diagram here.
-\textit{[Placeholder for Pipeline Overview Diagram representing Data Ingestion $\rightarrow$ Wrangling \& EDA $\rightarrow$ Feature Engineering $\rightarrow$ Algorithm Selection $\rightarrow$ Model Training \& Evaluation]}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2.5cm, auto, thick, scale=0.7, transform shape]
+    \tikzstyle{block} = [rectangle, draw, fill=blue!10, text width=7em, text centered, rounded corners, minimum height=3em]
+    \tikzstyle{line} = [draw, -latex']
+
+    \node [block] (data) {Data Ingestion};
+    \node [block, right of=data, node distance=3.5cm] (eda) {Wrangling \& EDA};
+    \node [block, right of=eda, node distance=3.5cm] (feat) {Feature Engineering};
+    \node [block, right of=feat, node distance=3.5cm] (model) {Algorithm Selection};
+    \node [block, right of=model, node distance=3.5cm] (eval) {Training \& Evaluation};
+
+    \path [line] (data) -- (eda);
+    \path [line] (eda) -- (feat);
+    \path [line] (feat) -- (model);
+    \path [line] (model) -- (eval);
+\end{tikzpicture}
+\caption{End-to-End Machine Learning Pipeline Overview}
+\label{fig:pipeline}
+\end{figure}
 
 \section{Phase 1: Problem Framing \& Data Acquisition}
 The problem framing, business motivation, and dataset description have been detailed in the sections above. Additionally, the project repository has been initialized with Git, organized into appropriate directories (\texttt{data/}, \texttt{notebooks/}, \texttt{src/}, \texttt{reports/}, \texttt{models/}), and a \texttt{.gitignore} has been configured to prevent data leakage into version control.
@@ -306,7 +383,7 @@ Every deployed AI system requires rigorous documentation. Below is the official 
 
 \subsection{Model Card: Tuned LightGBM NIDS}
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|p{0.25\textwidth}|p{0.7\textwidth}|}

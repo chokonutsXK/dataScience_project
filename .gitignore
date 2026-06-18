@@ -6,3 +6,11 @@ __pycache__/
 .ipynb_checkpoints/
 .env
 venv/
+
+# LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.nav
+*.snm
